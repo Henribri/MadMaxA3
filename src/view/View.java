@@ -1,24 +1,30 @@
 package view;
 
+import controller.Controller;
 import model.Model;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.SQLException;
 
 public class View extends JFrame implements ActionListener {
     Model model = new Model();
+    Controller controller = new Controller();
+    String pathToDecrypt;
 
-    final JFrame frame;
+    // final JFrame frame;
     JLabel l1, l2, l3;
     JTextField tf1;
     JButton btn1;
     JPasswordField p1;
 
     public View() {
-        frame = new JFrame("Login Form");
+        super("Login Form");
 
         l1 = new JLabel("Login Form");
         l1.setForeground(Color.blue);
@@ -38,15 +44,19 @@ public class View extends JFrame implements ActionListener {
         p1.setBounds(150, 110, 200, 30);
         btn1.setBounds(150, 160, 100, 30);
 
-        frame.add(l1);
-        frame.add(l2);
-        frame.add(tf1);
-        frame.add(l3);
-        frame.add(p1);
-        frame.add(btn1);
+        add(l1);
+        add(l2);
+        add(tf1);
+        add(l3);
+        add(p1);
+        add(btn1);
 
-        frame.setSize(400, 300);
-        setParams(frame);
+        setSize(400, 300);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
+        setLayout(null);
+        setVisible(true);
     }
 
     @Override
@@ -54,34 +64,42 @@ public class View extends JFrame implements ActionListener {
         String uname = tf1.getText();
         String pass = new String(p1.getPassword());
 
-        System.out.println(uname);
-        System.out.println(pass);
-
         Boolean exists = false;
 
         try {
-            exists = model.checkIfUserExist(uname,pass);
-        } catch (SQLException ex) {
+            exists = model.checkIfUserExist(uname, pass);
+
+            if (exists) {
+                this.setVisible(false);
+                JFileChooser chooser = new JFileChooser();
+                chooser.setApproveButtonText("Choix du fichier...");
+
+                if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                /*JOptionPane.showMessageDialog(this, "Nice",
+                        "Error", JOptionPane.ERROR_MESSAGE);*/
+                    pathToDecrypt = chooser.getSelectedFile().getAbsolutePath();
+//                    JWindow window = new JWindow();
+//                    window.getContentPane().add(
+//                            new JLabel("Loading...", SwingConstants.CENTER));
+//                    window.setBounds(900, 150, 50, 10);
+//                    window.setVisible(true);
+//                    Thread.sleep(5000);
+//                    window.setVisible(false);
+
+                    controller.readFile(pathToDecrypt);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Incorrect login or password",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (SQLException | IOException ex) {
             ex.printStackTrace();
         }
 
-        if (exists) {
-            JFrame wel = new JFrame("Bravo");
-            setParams(wel);
-            wel.setSize(400, 200);
-
-        } else {
-            JOptionPane.showMessageDialog(this, "Incorrect login or password",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-        }
-
     }
 
-    private void setParams(JFrame f) {
-        f.setLocationRelativeTo(null);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setResizable(false);
-        f.setLayout(null);
-        f.setVisible(true);
-    }
+//    private void setParams(JFrame f) {
+//    }
 }

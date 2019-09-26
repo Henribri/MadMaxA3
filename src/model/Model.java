@@ -24,8 +24,8 @@ public class Model {
             System.out.print(columnValue + "\n");
         }
 
-//        rs.close();
-//        statement.close();
+        rs.close();
+        statement.close();
     }
 
     private Connection getConnection() {
