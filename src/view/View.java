@@ -13,6 +13,7 @@ import java.sql.SQLException;
 
 public class View extends JFrame implements ActionListener {
     Model model = new Model();
+
     Controller controller = new Controller();
 
     JLabel l1, l2, l3;
@@ -92,6 +93,8 @@ public class View extends JFrame implements ActionListener {
             }
 
         } catch (IOException | SQLException | NoSuchAlgorithmException ex) {
+            ex.printStackTrace();
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }

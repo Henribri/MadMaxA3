@@ -6,9 +6,11 @@ import view.View;
 import java.io.*;
 
 public class Controller {
+    String original = "awqpmndf";
     String PATH_DESTINATION;
+    String inputString;
 
-    public void launchProcedure(String path,String destination) throws IOException {
+    public void launchProcedure(String path,String destination) throws Exception {
         PATH_DESTINATION = destination;
         InputStream stream;
         stream = new FileInputStream(path);
@@ -22,11 +24,18 @@ public class Controller {
 
         stream.close();
 
-        encryptDecrypt("awqpmndfnbvc",reponse.toString());
+        inputString = reponse.toString();
+
+        BruteForce b = new BruteForce(this);
+
+        //encryptDecrypt("awqpmndfnbvc",reponse.toString());
         // generateKeyAndED(reponse.toString());
     }
 
-    private void encryptDecrypt(String key, String inputString) throws IOException {
+    public String encryptDecrypt(String key) throws IOException {
+
+        String nKey = original + key;
+
         StringBuilder sb1;
         char c1;
         char c2;
@@ -39,31 +48,33 @@ public class Controller {
 
         for (i = 0; i < inputString.length(); i++) {
             c1 = inputString.charAt(i);
-            c2 = key.charAt(ii);
+            c2 = nKey.charAt(ii);
 
             c3 = (char) (c1 ^ c2);
             sb1.append(c3);
 
             ii++;
-            if (ii == key.length()) {
+            if (ii == nKey.length()) {
                 ii = 0;
             }
         }
-        //return sb1.toString();
-        writeFile(sb1.toString());
+        return sb1.toString();
+        //writeFile(sb1.toString());
     }
 
-    private void writeFile(String text) throws IOException {
+    public void writeFile(String goodKey) throws IOException {;
         OutputStream stream;
-
+        String text = encryptDecrypt(goodKey);
+        System.out.println(text);
         stream = new FileOutputStream(PATH_DESTINATION);
         byte[] buffer = text.getBytes();
         stream.write(buffer);
         stream.close();
         System.out.println("Terminé !");
+        System.exit(-1);
     }
 
-    private void generateKeyAndED(String inputString) throws IOException {
+    private void generateKeyAndED(String inputString) {
         String letters[] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
         String intitial = "awqpmndf";
 
@@ -90,7 +101,6 @@ public class Controller {
 
                                     for (int p = 0; p < 26; p++) {
                                         String L8 = (L7 + letters[p]);
-                                        encryptDecrypt(L8,inputString);
                                     }
                                 }
                             }
