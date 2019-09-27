@@ -1,5 +1,8 @@
 package model;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 
 public class Model {
@@ -47,14 +50,29 @@ public class Model {
         }
     }
 
-    public boolean checkIfUserExist(String uname, String pass) throws SQLException {
+    public boolean checkIfUserExist(String uname, String pass) throws SQLException, NoSuchAlgorithmException {
         String query = "SELECT * FROM `tb_personne` WHERE `uname` =? AND `pass` =?";
         ps = getConnection().prepareStatement(query);
 
         ps.setString(1, uname);
-        ps.setString(2, pass);
+        ps.setString(2, getMD5Hash(pass));
         rs = ps.executeQuery();
 
         return rs.next();
+    }
+
+    private static String getMD5Hash(String s) throws NoSuchAlgorithmException {
+
+        String result = s;
+        if (s != null) {
+            MessageDigest md = MessageDigest.getInstance("MD5"); // or "SHA-1"
+            md.update(s.getBytes());
+            BigInteger hash = new BigInteger(1, md.digest());
+            result = hash.toString(16);
+            while (result.length() < 32) { // 40 for SHA-1
+                result = "0" + result;
+            }
+        }
+        return result;
     }
 }

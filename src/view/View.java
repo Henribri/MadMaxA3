@@ -8,10 +8,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 public class View extends JFrame implements ActionListener {
-    Model model;
+    Model model = new Model();
     Controller controller = new Controller();
 
     JLabel l1, l2, l3;
@@ -90,7 +91,7 @@ public class View extends JFrame implements ActionListener {
                         "Error", JOptionPane.ERROR_MESSAGE);
             }
 
-        } catch (IOException | SQLException ex) {
+        } catch (IOException | SQLException | NoSuchAlgorithmException ex) {
             ex.printStackTrace();
         }
     }
