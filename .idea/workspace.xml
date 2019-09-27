@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0a486275-5198-4410-8716-7436a6151683" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/controller/BruteForce.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/words.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Controller.java" afterDir="false" />
@@ -26,7 +29,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1RHgdvKcBwJOVdE8qYCKPl2EdB2" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="C:/mysql-connector-java-8.0.17/mysql-connector-java-8.0.17.jar!/" />
@@ -34,7 +39,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="File.Encoding" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -88,7 +93,10 @@
       <workItem from="1569394973543" duration="9957000" />
       <workItem from="1569410991308" duration="11435000" />
       <workItem from="1569443199473" duration="950000" />
-      <workItem from="1569481057941" duration="6852000" />
+      <workItem from="1569481057941" duration="14581000" />
+      <workItem from="1569517216945" duration="524000" />
+      <workItem from="1569517859530" duration="7420000" />
+      <workItem from="1569568462913" duration="1329000" />
     </task>
     <servers />
   </component>

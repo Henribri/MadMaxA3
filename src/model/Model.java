@@ -48,17 +48,13 @@ public class Model {
     }
 
     public boolean checkIfUserExist(String uname, String pass) throws SQLException {
-        String query = "SELECT * FROM `tb_personne` WHERE `name` =? AND `firstName` =?";
+        String query = "SELECT * FROM `tb_personne` WHERE `uname` =? AND `pass` =?";
         ps = getConnection().prepareStatement(query);
 
         ps.setString(1, uname);
         ps.setString(2, pass);
         rs = ps.executeQuery();
-        System.out.println(rs);
 
-        if (rs.next())
-            return true;
-        else
-            return false;
+        return rs.next();
     }
 }

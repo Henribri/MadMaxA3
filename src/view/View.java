@@ -8,16 +8,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.sql.SQLException;
 
 public class View extends JFrame implements ActionListener {
-    Model model = new Model();
+    Model model;
     Controller controller = new Controller();
-    String pathToDecrypt;
 
-    // final JFrame frame;
     JLabel l1, l2, l3;
     JTextField tf1;
     JButton btn1;
@@ -65,41 +61,45 @@ public class View extends JFrame implements ActionListener {
         String pass = new String(p1.getPassword());
 
         Boolean exists = false;
+        String pathToDecrypt = null;
+        String pathDestination = null;
 
         try {
             exists = model.checkIfUserExist(uname, pass);
 
             if (exists) {
                 this.setVisible(false);
+
                 JFileChooser chooser = new JFileChooser();
-                chooser.setApproveButtonText("Choix du fichier...");
-
-                if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-                /*JOptionPane.showMessageDialog(this, "Nice",
-                        "Error", JOptionPane.ERROR_MESSAGE);*/
+                chooser.setApproveButtonText("Choix du fichier à décrypter");
+                if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
                     pathToDecrypt = chooser.getSelectedFile().getAbsolutePath();
-//                    JWindow window = new JWindow();
-//                    window.getContentPane().add(
-//                            new JLabel("Loading...", SwingConstants.CENTER));
-//                    window.setBounds(900, 150, 50, 10);
-//                    window.setVisible(true);
-//                    Thread.sleep(5000);
-//                    window.setVisible(false);
+                else
+                    System.exit(-1);
 
-                    controller.readFile(pathToDecrypt);
-                }
+                JFileChooser chooser2 = new JFileChooser();
+                chooser2.setApproveButtonText("Fichier de destination");
+                if (chooser2.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
+                    pathDestination = chooser2.getSelectedFile().getAbsolutePath();
+                else
+                    System.exit(-1);
 
+                controller.launchProcedure(pathToDecrypt, pathDestination);
             } else {
                 JOptionPane.showMessageDialog(this, "Incorrect login or password",
                         "Error", JOptionPane.ERROR_MESSAGE);
             }
 
-        } catch (SQLException | IOException ex) {
+        } catch (IOException | SQLException ex) {
             ex.printStackTrace();
         }
-
     }
 
-//    private void setParams(JFrame f) {
-//    }
+    public void frameFinal() {
+        JWindow window = new JWindow();
+        window.getContentPane().add(
+                new JLabel("Terminé !", SwingConstants.CENTER));
+        window.setBounds(900, 150, 50, 10);
+        window.setVisible(true);
+    }
 }

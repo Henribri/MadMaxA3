@@ -1,15 +1,17 @@
 package controller;
 
+import com.sun.tools.javac.Main;
+import view.View;
+
 import java.io.*;
 
 public class Controller {
-    String PATH;
-    String KEY = "aaaaazertyui";
+    String PATH_DESTINATION;
 
-    public void readFile(String path) throws IOException {
-        PATH = path;
+    public void launchProcedure(String path,String destination) throws IOException {
+        PATH_DESTINATION = destination;
         InputStream stream;
-        stream = new FileInputStream(PATH);
+        stream = new FileInputStream(path);
         StringBuilder reponse;
 
         reponse = new StringBuilder();
@@ -20,11 +22,11 @@ public class Controller {
 
         stream.close();
 
-        generateKeyAndED(reponse.toString());
+        encryptDecrypt("awqpmndfnbvc",reponse.toString());
+        // generateKeyAndED(reponse.toString());
     }
 
     private void encryptDecrypt(String key, String inputString) throws IOException {
-        // KEY = "a";
         StringBuilder sb1;
         char c1;
         char c2;
@@ -47,24 +49,23 @@ public class Controller {
                 ii = 0;
             }
         }
-        // writeFile(sb1.toString());
-        System.out.println(sb1);
+        //return sb1.toString();
+        writeFile(sb1.toString());
     }
 
-    private boolean writeFile(String texte) throws IOException {
+    private void writeFile(String text) throws IOException {
         OutputStream stream;
-        String b = RandomStringUtils.randomAlphanumeric(10);
 
-        stream = new FileOutputStream("C:\\Users\\LANSEL Dorian\\Desktop\\test.txt");
-        byte[] buffer = texte.getBytes();
+        stream = new FileOutputStream(PATH_DESTINATION);
+        byte[] buffer = text.getBytes();
         stream.write(buffer);
         stream.close();
-        return true;
+        System.out.println("Terminé !");
     }
 
-    private void generateKeyAndED(String inputString) {
+    private void generateKeyAndED(String inputString) throws IOException {
         String letters[] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
-        String intitial = "adhy";
+        String intitial = "awqpmndf";
 
         for (int i = 0; i < 26; i++) {
             String L1 = intitial + letters[i];
@@ -89,8 +90,7 @@ public class Controller {
 
                                     for (int p = 0; p < 26; p++) {
                                         String L8 = (L7 + letters[p]);
-                                        System.out.println(L8);
-//                                        encryptDecrypt(L8,inputString);
+                                        encryptDecrypt(L8,inputString);
                                     }
                                 }
                             }
